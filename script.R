@@ -24,7 +24,7 @@ tag_values <-c("tag_1,"tag_2","tag_3")
 #Filter the data
 filtered_data <- data_fill %>%
   filter(Tags %in% tag_values) %>%
-  mutate(Tags = if_else(Object.Name != "", Tags, NA_character_))
+  mutate(Tags = if_else(Object.Name != "", Tags, ""))
 
 template_columns <- colnames(import_template)
 
