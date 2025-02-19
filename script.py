@@ -18,7 +18,7 @@ tag_values = ["tag_1", "tag_2", "tag_3"]
 
 # Filter the data
 filtered_data = data_fill[data_fill['Tags'].isin(tag_values)]
-filtered_data.loc[filtered_data['Object.Name'] == "", 'Tags'] = pd.NA
+filtered_data.loc[filtered_data['Object.Name'] == "", 'Tags'] = ""
 
 # Get template column names
 template_columns = import_template.columns.tolist()
