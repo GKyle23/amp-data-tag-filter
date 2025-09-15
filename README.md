@@ -1,3 +1,6 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+
 # amp-data-tag-filter
 
 A tiny, pandas-based helper to slice an Amplitude tracking plan export by Tags, align it to your import template, and write a clean CSV ready to re-import. This keeps things simple and close to the original script.
