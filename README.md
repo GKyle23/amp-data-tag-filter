@@ -11,6 +11,7 @@ A tiny, pandas-based helper to slice an Amplitude tracking plan export by Tags, 
 - Loads your Amplitude import template (default: import_template.csv)
 - Converts empty strings in Tags to NA and fills down (ffill) so child rows inherit their parent object’s tag
 - Keeps only rows whose filled Tags value is in your chosen tag_values
+- Allows the option to remove property group types as these can conflict with your destination project
 - Selects only the template’s columns and re-orders to match
 - Writes the result to output_csv
 
