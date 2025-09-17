@@ -1,11 +1,11 @@
 import pandas as pd
-from typing import Iterable
 
 def filter_tracking_plan(
     input_csv: str = "import_data.csv",
     template_csv: str = "import_template.csv",
-    tag_values: Iterable[str] = (),
-    output_csv: str = "import_data.csv",
+    tag_values: list[str] = None,
+    keep_property_group_type: True | False = True,
+    output_csv: str = "filtered_data.csv",
 ) -> pd.DataFrame:
     """
     Load Amplitude tracking plan CSV, fill-down Tags, filter by given tags,
@@ -20,17 +20,17 @@ def filter_tracking_plan(
     # Convert empty strings to NA so ffill works, then fill down
     if "Tags" not in data.columns:
         raise ValueError("Input CSV must contain a 'Tags' column.")
-    data = data.copy()
-    data["Tags"] = data["Tags"].replace("", pd.NA)
-    data_fill = data.fillna(method="ffill")
+    data_fill = data.copy()
+    data_fill["Tags"] = data_fill["Tags"].replace("", pd.NA).fillna(method="ffill")
 
     # Filter by tag values
-    tag_values = list(tag_values)
-    filtered_data = data_fill[data_fill["Tags"].isin(tag_values)].copy()
+    filtered_data = data_fill[data_fill["Tags"].isin(tag_values)].copy() 
+    
+    # Remove property group types so does not conflict with destination plan
+    if not keep_property_group_type:
+        filtered_data = filtered_data[filtered_data["Property Type"] != "Event Property Group"].copy()
 
-    # If Object.Name exists, clear Tags where Object.Name is empty (matches your script)
-    if "Object.Name" in filtered_data.columns:
-        filtered_data.loc[filtered_data["Object.Name"] == "", "Tags"] = ""
+    filtered_data.loc[filtered_data["Object Name"].isna(), "Tags"] = ""
 
     # Align to template column order
     template_columns = import_template.columns.tolist()
@@ -41,9 +41,6 @@ def filter_tracking_plan(
             filtered_data[c] = pd.NA
 
     aligned_dataset = filtered_data[template_columns].copy()
-
-    # Replace dots with spaces in final column headers (as in your script)
-    aligned_dataset.columns = aligned_dataset.columns.str.replace(".", " ", regex=False)
 
     # Save to output
     aligned_dataset.to_csv(output_csv, index=False)
@@ -57,5 +54,6 @@ if __name__ == "__main__":
         input_csv="import_data.csv",
         template_csv="import_template.csv",
         tag_values=["tag_1", "tag_2", "tag_3"],
+        keep_property_group_type = True,
         output_csv="import_data.csv",
     )
