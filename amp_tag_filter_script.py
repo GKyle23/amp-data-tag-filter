@@ -4,7 +4,7 @@ def filter_tracking_plan(
     input_csv: str = "import_data.csv",
     template_csv: str = "import_template.csv",
     tag_values: list[str] = None,
-    keep_property_group_type: True | False = True,
+    keep_property_group_type: bool = True,
     output_csv: str = "filtered_data.csv",
 ) -> pd.DataFrame:
     """

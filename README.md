@@ -44,6 +44,7 @@ filter_tracking_plan(
     input_csv="import_data.csv",
     template_csv="import_template.csv",
     tag_values=["tag_1", "tag_2", "tag_3"],
+    keep_property_group_type: bool = True
     # Recommended: write to a new file to avoid overwriting your source
     output_csv="dist/import_data.filtered.csv",
 )
@@ -59,7 +60,8 @@ If you kept the small if __name__ == "__main__": example in the script, you can 
 filter_tracking_plan(
     input_csv: str = "import_data.csv",
     template_csv: str = "import_template.csv",
-    tag_values: Iterable[str] = (),
+    tag_values: list[str] = None,
+    keep_property_group_type: bool = True,
     output_csv: str = "import_data.csv",
 ) -> pandas.DataFrame
 ```
@@ -67,7 +69,7 @@ filter_tracking_plan(
 
 - `input_csv` – tracking plan export
 - `template_csv` – Amplitude import template (defines output columns/order)
-` `tag_values` – list/iterable of tag strings to keep (exact match after fill-down)
+- `tag_values` – list/iterable of tag strings to keep (exact match after fill-down)
 - `output_csv` – path to write the aligned, filtered CSV
 
 Returns the final DataFrame written to `output_csv`.
