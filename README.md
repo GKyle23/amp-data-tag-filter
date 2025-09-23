@@ -46,7 +46,7 @@ filter_tracking_plan(
     tag_values=["tag_1", "tag_2", "tag_3"],
     keep_property_group_type: bool = True
     # Recommended: write to a new file to avoid overwriting your source
-    output_csv="dist/import_data.filtered.csv",
+    output_csv="filtered_data.csv",
 )
 ```
 
@@ -62,7 +62,7 @@ filter_tracking_plan(
     template_csv: str = "import_template.csv",
     tag_values: list[str] = None,
     keep_property_group_type: bool = True,
-    output_csv: str = "import_data.csv",
+    output_csv: str = "filtered_data.csv",
 ) -> pandas.DataFrame
 ```
 
