@@ -55,5 +55,5 @@ if __name__ == "__main__":
         template_csv="import_template.csv",
         tag_values=["tag_1", "tag_2", "tag_3"],
         keep_property_group_type = True,
-        output_csv="import_data.csv",
+        output_csv="filtered_data.csv",
     )
